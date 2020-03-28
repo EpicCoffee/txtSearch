@@ -10,7 +10,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../view/appView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../view/FileSearchView.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
@@ -18,6 +18,9 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        launch(args);
+		System.out.println("Hello");
+
+		// Use this command below to launch javaFX View.
+		//launch(args);
     }
 }
