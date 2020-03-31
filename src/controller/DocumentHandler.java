@@ -25,4 +25,16 @@ public class DocumentHandler
 		}
 		return wordMatches;
 	}
+
+	/**
+	 * alphabeticSort() receives an unsorted array and returns it alphabetically sorted. It uses the method <br>
+	 * Arrays.sort to sort the array.
+	 *
+	 * @param unsortedTextfile
+	 * @return
+	 */
+	public static String[] alphabeticSort(String[] unsortedTextfile){
+		Arrays.sort(unsortedTextfile);
+		return unsortedTextfile;
+	}
 }

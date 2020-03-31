@@ -6,6 +6,16 @@ import org.junit.jupiter.api.Test;
 
 class DocumentHandlerTest
 {
+
+	private String[] unsorted = {"cat","monkey","elephant","antelope"};
+	private String[] sorted = {"antelope","cat","elephant","monkey"};
+
+	@Test
+	void alphabeticSort() {
+		DocumentHandler documentHandler = new DocumentHandler();
+		assertEquals(sorted, DocumentHandler.alphabeticSort(unsorted),"Array is not alphabetic");
+	}
+
 	@Test
 	void searchStrings()
 	{
