@@ -22,4 +22,9 @@ class DocumentHandlerTest
 		TextFile myTextFile = new TextFile("Name", new String[]{"hej", "hopp", "katt", "mus", "Janne", "malle", "Kalle", "Ulle", "paka", "makka", "katt"});
 		assertEquals(4, DocumentHandler.searchStrings(myTextFile, "hej", "katt", "Janne").size(), "I do not find the words.");
 	}
+
+	@Test
+    void sortRanking(){
+
+    }
 }
