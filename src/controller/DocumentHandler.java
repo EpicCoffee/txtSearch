@@ -25,4 +25,5 @@ public class DocumentHandler
 		}
 		return wordMatches;
 	}
+
 }
