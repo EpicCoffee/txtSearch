@@ -1,5 +1,8 @@
 package controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import model.TextFile;
@@ -26,4 +29,36 @@ public class DocumentHandler
 		return wordMatches;
 	}
 
+	/**
+	 * alphabeticSort() receives an unsorted array and returns it alphabetically sorted. It uses the method <br>
+	 * Arrays.sort to sort the array.
+	 *
+	 * @param unsortedTextfile The unsorted text file.
+	 * @return The sorted text file.
+	 */
+	public static String[] alphabeticSort(String[] unsortedTextfile){
+		Arrays.sort(unsortedTextfile);
+		return unsortedTextfile;
+	}
+
+	/**
+	 * stored data from content into wordsAndnumber Array and using split to manipulate text.
+	 * @param filePath all bytes from files stored into filepath
+	 * @return content as empty at first but when we send in an filePathArgument it will recive the data of the filepath
+	 */
+    public static String getContent(String filePath) {
+        String content = "";
+        try
+        {
+            content = new String(Files.readAllBytes(Paths.get(filePath)));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        String wordsAndNumber [] =content.split(" ");
+		System.out.println(wordsAndNumber[0]);
+
+        return content;
+    }
 }
