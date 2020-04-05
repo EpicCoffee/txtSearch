@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -42,11 +43,13 @@ public class DocumentHandler
 	}
 
 	/**
-	 * stored data from content into wordsAndnumber Array and using split to manipulate text.
-	 * @param filePath all bytes from files stored into filepath
-	 * @return content as empty at first but when we send in an filePathArgument it will recive the data of the filepath
+
+	 * using content as an "empty box" where i store and manipulate eg. with split and filepath
+	 * @param filePath String filePath has the file reading function so we send it as an argument it will read the files
+	 * @return will return the the texts inside words an array each word has it own position index
+	 * regex it removes all non alphabetic letters.
 	 */
-    public static String getContent(String filePath) {
+    public  String[] getContent(String filePath) {
         String content = "";
         try
         {
@@ -55,10 +58,34 @@ public class DocumentHandler
         catch (IOException e)
         {
             e.printStackTrace();
-        }
-        String wordsAndNumber [] =content.split(" ");
-		System.out.println(wordsAndNumber[0]);
 
-        return content;
+        }
+        String[] words =content.split("\\W+");
+
+
+
+        return words;
     }
+
+	/**
+	 *
+	 * @param checkFile creating a file while checking if it exist already in a if statement
+	 * @return return so we can use it as an argument when we call the function.
+	 */
+	public  boolean CreateFile(Boolean checkFile){
+        try {
+            File file = new File("C:/txtSearch/text2.txt");
+            checkFile = file.createNewFile();
+            if (checkFile){
+                System.out.println("file has been created");
+            }else {
+                System.out.println("File has already been created");
+            }
+        } catch (IOException e) {
+            System.out.println("Error");
+            e.printStackTrace();
+        }
+return checkFile;
+    }
+
 }
