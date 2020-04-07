@@ -56,6 +56,7 @@ public class FileSearchController
 		VBox vBox = new VBox();
 		for (TextFile textfile : Session.getSession().getLoadedTextFiles())
 		{
+			System.out.println("Adding " + textfile.getFileName());
 			Label titleLabel = new Label(textfile.getFileName());
 
 			titleLabel.setOnMouseClicked(event -> {
