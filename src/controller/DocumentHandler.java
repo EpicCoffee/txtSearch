@@ -91,15 +91,22 @@ public class DocumentHandler
 return checkFile;
     }
 
+    /**
+     * setRankingOnTextFile() uses searchString() to rank the chosen documents and saves the ranking and found words <br>
+     *     in the TextFileRatings class.
+     * @param chosenDocuments The chosen documents to search and rank.
+     * @param chosenWords The words to search after.
+     * @return Returns the sorted document.
+     */
 	public List setRankingOnTextFile(ArrayList<TextFile> chosenDocuments, String ... chosenWords){
-		List<TextFileRatings> scores = new ArrayList<TextFileRatings>();
+		List<TextFileRatings> ratedTextFiles = new ArrayList<TextFileRatings>();
 
 		for (int i = 0; i < chosenDocuments.size(); i++) {
 			int rating = searchStrings(chosenDocuments.get(i),chosenWords).size();
-			scores.add(new TextFileRatings(rating,chosenDocuments.get(i)));
+            ratedTextFiles.add(new TextFileRatings(rating,chosenDocuments.get(i)));
 		}
-		Collections.sort(scores);
-		return scores;
+		Collections.sort(ratedTextFiles);
+		return ratedTextFiles;
 	}
 
 }
