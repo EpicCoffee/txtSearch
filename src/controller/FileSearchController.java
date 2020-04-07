@@ -22,10 +22,21 @@ public class FileSearchController
 	public TextField searchInput, titleLabel;
 	public AnchorPane searchResultPane, lobbyPane, editPane;
 
+	VBox loadedFilesVBox;
+
 	@FXML
 	public void saveFile(ActionEvent actionEvent)
 	{
-		DocumentHandler.saveFile(titleLabel.getText(), textArea.getText());
+		if (DocumentHandler.saveFile(titleLabel.getText(), textArea.getText()))
+		{
+			DocumentHandler.loadAllFiles();
+			initializeAllLoadedFilesPane();
+			goToLobby(null);
+		}
+		else
+		{
+			// file did not save
+		}
 	}
 
 	@FXML
@@ -54,10 +65,10 @@ public class FileSearchController
 
 	private void initializeAllLoadedFilesPane()
 	{
-		VBox vBox = new VBox();
+		allLoadedFilesPane.getChildren().remove(loadedFilesVBox);
+		loadedFilesVBox = new VBox();
 		for (TextFile textfile : Session.getSession().getLoadedTextFiles())
 		{
-			System.out.println("Adding " + textfile.getFileName());
 			Label titleLabel = new Label(textfile.getFileName());
 
 			titleLabel.setOnMouseClicked(event -> {
@@ -72,8 +83,8 @@ public class FileSearchController
 					Session.getSession().addToChoosenDocuments(textfile);
 				}
 			});
-			vBox.getChildren().add(titleLabel);
+			loadedFilesVBox.getChildren().add(titleLabel);
 		}
-		allLoadedFilesPane.getChildren().add(vBox);
+		allLoadedFilesPane.getChildren().add(loadedFilesVBox);
 	}
 }

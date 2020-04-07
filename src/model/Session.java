@@ -39,6 +39,11 @@ public class Session
 		loadedTextFiles.add(loadedTextFile);
 	}
 
+	public void resetLoadedTextFiles()
+	{
+		loadedTextFiles = new ArrayList<>();
+	}
+
 	public void removeAtLoadedTextFiles(TextFile loadedTextFile)
 	{
 		this.loadedTextFiles.remove(loadedTextFile);
