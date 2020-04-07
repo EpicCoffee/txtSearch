@@ -19,7 +19,7 @@ public class Session
 	{
 		if (session == null)
 		{
-			return new Session();
+			session = new Session();
 		}
 		return session;
 	}
@@ -36,7 +36,7 @@ public class Session
 
 	public void addToLoadedTextFiles(TextFile loadedTextFile)
 	{
-		this.loadedTextFiles.add(loadedTextFile);
+		loadedTextFiles.add(loadedTextFile);
 	}
 
 	public void removeAtLoadedTextFiles(TextFile loadedTextFile)
