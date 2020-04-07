@@ -37,7 +37,6 @@ public class FileSearchController
 	@FXML
 	public void onClickSearchNow(ActionEvent actionEvent)
 	{
-
 	}
 
 	@FXML
@@ -47,7 +46,7 @@ public class FileSearchController
 		lobbyPane.setVisible(false);
 	}
 
-	public void initializeAll()
+	public void initialize()
 	{
 		initializeAllLoadedFilesPane();
 	}
