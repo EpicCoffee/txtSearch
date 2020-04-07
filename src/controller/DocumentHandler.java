@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -71,24 +72,24 @@ public class DocumentHandler
     }
 
 	/**
-	 *
-	 * @param checkFile creating a file while checking if it exist already in a if statement
-	 * @return return so we can use it as an argument when we call the function.
+	 * Tries to create a file with name and content.
+	 * @return true if file is created.
 	 */
-	public  boolean CreateFile(Boolean checkFile){
+	public boolean CreateFile(String name, String content)
+	{
         try {
-            File file = new File("C:/txtSearch/text2.txt");
-            checkFile = file.createNewFile();
-            if (checkFile){
-                System.out.println("file has been created");
-            }else {
-                System.out.println("File has already been created");
-            }
+            File file = new File("C:/txtSearch/" + name + ".txt");
+            if (file.createNewFile())
+			{
+				FileWriter fileWriter = new FileWriter(file);
+				fileWriter.write(content);
+				return true;
+			}
         } catch (IOException e) {
             System.out.println("Error");
             e.printStackTrace();
         }
-return checkFile;
+		return false;
     }
 
 	public List setRankingOnTextFile(ArrayList<TextFile> chosenDocuments, String ... chosenWords){
