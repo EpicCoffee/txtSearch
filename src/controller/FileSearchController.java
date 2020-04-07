@@ -25,12 +25,13 @@ public class FileSearchController
 	@FXML
 	public void saveFile(ActionEvent actionEvent)
 	{
+		DocumentHandler.saveFile(titleLabel.getText(), textArea.getText());
 	}
 
 	@FXML
 	public void goToLobby(ActionEvent actionEvent)
 	{
-		searchResultPane.setVisible(false);
+		editPane.setVisible(false);
 		lobbyPane.setVisible(true);
 	}
 
@@ -42,7 +43,7 @@ public class FileSearchController
 	@FXML
 	public void goToNewDocument(ActionEvent actionEvent)
 	{
-		searchResultPane.setVisible(true);
+		editPane.setVisible(true);
 		lobbyPane.setVisible(false);
 	}
 

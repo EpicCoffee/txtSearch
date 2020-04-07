@@ -1,8 +1,10 @@
 package controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -53,7 +55,7 @@ public class DocumentHandler
 	 * @return will return the the texts inside words an array each word has it own position index
 	 * regex it removes all non alphabetic letters.
 	 */
-    public  String[] getContent(String filePath) {
+    public String[] getContent(String filePath) {
         String content = "";
         try
         {
@@ -75,22 +77,38 @@ public class DocumentHandler
 	 * Tries to create a file with name and content.
 	 * @return true if file is created.
 	 */
-	public boolean CreateFile(String name, String content)
+	public static boolean saveFile(String fileName, String content)
 	{
-        try {
-            File file = new File("C:/txtSearch/" + name + ".txt");
-            if (file.createNewFile())
+		try {
+			File file = new File("C:/txtSearch/" + fileName + ".txt");
+			if (file.exists())
 			{
-				FileWriter fileWriter = new FileWriter(file);
-				fileWriter.write(content);
-				return true;
+				return writeInTextFile(fileName, content);
 			}
-        } catch (IOException e) {
-            System.out.println("Error");
-            e.printStackTrace();
-        }
+			else if (file.createNewFile())
+			{
+				return writeInTextFile(fileName, content);
+			}
+		} catch (IOException e) {
+			System.out.println("Error");
+			e.printStackTrace();
+		}
 		return false;
-    }
+	}
+
+	public static boolean writeInTextFile(String fileName, String content)
+	{
+		try (PrintWriter out = new PrintWriter("C:/txtSearch/" + fileName + ".txt")) {
+			out.println(content);
+			return true;
+		}
+		catch (IOException e)
+		{
+			System.out.println("Error");
+			e.printStackTrace();
+		}
+		return false;
+	}
 
     /**
      * setRankingOnTextFile() uses searchString() to rank the chosen documents and saves the ranking and found words <br>

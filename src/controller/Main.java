@@ -21,23 +21,16 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-		TextFile textFile1 = new TextFile("Katten", new String[]{"hej", "hopp"});
+		/*TextFile textFile1 = new TextFile("Katten", new String[]{"hej", "hopp"});
 		TextFile textFile2 = new TextFile("musen", new String[]{"hej", "hopp"});
 		TextFile textFile3 = new TextFile("busen", new String[]{"hej", "hopp"});
 		Session.getSession().addToLoadedTextFiles(textFile1);
 		Session.getSession().addToLoadedTextFiles(textFile2);
-		Session.getSession().addToLoadedTextFiles(textFile3);
+		Session.getSession().addToLoadedTextFiles(textFile3);*/
 
-		if (Session.getSession().getLoadedTextFiles() != null)
-		{
-			System.out.println(Session.getSession().getLoadedTextFiles().size() + " is loaded");
-		}
-		else
-		{
-			System.out.println("No text files loaded");
-		}
+
 		System.out.println("Hello");
-       //DocumentHandler DH = new DocumentHandler();
+       DocumentHandler DH = new DocumentHandler();
        //DH.getContent("C:/txtSearch/makeitWork.txt");
        // DH.getContent("C:/txtSearch/text.txt");
        //DH.CreateFile("Katt", "Hej katt man katt");
