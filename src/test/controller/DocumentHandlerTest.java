@@ -27,4 +27,13 @@ class DocumentHandlerTest
     void sortRanking(){
 
     }
+    @Test
+	void getContent(String filePath) {
+        String testContent ="";
+
+	}
+	void CreateFile(){
+		
+	}
+
 }

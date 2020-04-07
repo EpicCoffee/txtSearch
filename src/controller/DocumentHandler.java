@@ -1,10 +1,14 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import model.TextFile;
 
 public class DocumentHandler
@@ -36,19 +40,19 @@ public class DocumentHandler
 	 * @param unsortedTextfile The unsorted text file.
 	 * @return The sorted text file.
 	 */
-	public static String[] alphabeticSort(String[] unsortedTextfile)
-	{
+	public static String[] alphabeticSort(String[] unsortedTextfile){
 		Arrays.sort(unsortedTextfile);
 		return unsortedTextfile;
 	}
 
 	/**
-	 * stored data from content into wordsAndnumber Array and using split to manipulate text.
-	 * @param filePath all bytes from files stored into filepath
-	 * @return content as empty at first but when we send in an filePathArgument it will recive the data of the filepath
+
+	 * using content as an "empty box" where i store and manipulate eg. with split and filepath
+	 * @param filePath String filePath has the file reading function so we send it as an argument it will read the files
+	 * @return will return the the texts inside words an array each word has it own position index
+	 * regex it removes all non alphabetic letters.
 	 */
-    public static String[] getContent(String filePath)
-	{
+    public  String[] getContent(String filePath) {
         String content = "";
         try
         {
@@ -57,7 +61,45 @@ public class DocumentHandler
         catch (IOException e)
         {
             e.printStackTrace();
+
         }
-        return content.split("\\W+");
+        String[] words =content.split("\\W+");
+
+
+
+        return words;
     }
+
+	/**
+	 *
+	 * @param checkFile creating a file while checking if it exist already in a if statement
+	 * @return return so we can use it as an argument when we call the function.
+	 */
+	public  boolean CreateFile(Boolean checkFile){
+        try {
+            File file = new File("C:/txtSearch/text2.txt");
+            checkFile = file.createNewFile();
+            if (checkFile){
+                System.out.println("file has been created");
+            }else {
+                System.out.println("File has already been created");
+            }
+        } catch (IOException e) {
+            System.out.println("Error");
+            e.printStackTrace();
+        }
+return checkFile;
+    }
+
+	public List setRankingOnTextFile(ArrayList<TextFile> chosenDocuments, String ... chosenWords){
+		List<TextFileRatings> scores = new ArrayList<TextFileRatings>();
+
+		for (int i = 0; i < chosenDocuments.size(); i++) {
+			int rating = searchStrings(chosenDocuments.get(i),chosenWords).size();
+			scores.add(new TextFileRatings(rating,chosenDocuments.get(i)));
+		}
+		Collections.sort(scores);
+		return scores;
+	}
+
 }

@@ -20,9 +20,9 @@ public class Main extends Application {
     public static void main(String[] args) {
 		System.out.println("Hello");
        DocumentHandler DH = new DocumentHandler();
-       DH.getContent("C:/txtSearch/src/controller/engwords.txt");
-        DH.getContent("C:/txtSearch/src/controller/numbers.txt");
-
+       DH.getContent("C:/txtSearch/makeitWork.txt");
+        DH.getContent("C:/txtSearch/text.txt");
+       DH.CreateFile(true);
 
 
 
