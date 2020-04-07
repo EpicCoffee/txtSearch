@@ -20,6 +20,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+		System.out.println("Hej 2");
 
 		/*TextFile textFile1 = new TextFile("Katten", new String[]{"hej", "hopp"});
 		TextFile textFile2 = new TextFile("musen", new String[]{"hej", "hopp"});
