@@ -6,6 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import model.TextFile;
 
 public class DocumentHandler
@@ -87,5 +90,16 @@ public class DocumentHandler
         }
 return checkFile;
     }
+
+	public List setRankingOnTextFile(ArrayList<TextFile> chosenDocuments, String ... chosenWords){
+		List<TextFileRatings> scores = new ArrayList<TextFileRatings>();
+
+		for (int i = 0; i < chosenDocuments.size(); i++) {
+			int rating = searchStrings(chosenDocuments.get(i),chosenWords).size();
+			scores.add(new TextFileRatings(rating,chosenDocuments.get(i)));
+		}
+		Collections.sort(scores);
+		return scores;
+	}
 
 }
