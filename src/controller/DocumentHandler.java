@@ -36,7 +36,8 @@ public class DocumentHandler
 	 * @param unsortedTextfile The unsorted text file.
 	 * @return The sorted text file.
 	 */
-	public static String[] alphabeticSort(String[] unsortedTextfile){
+	public static String[] alphabeticSort(String[] unsortedTextfile)
+	{
 		Arrays.sort(unsortedTextfile);
 		return unsortedTextfile;
 	}
@@ -46,7 +47,8 @@ public class DocumentHandler
 	 * @param filePath all bytes from files stored into filepath
 	 * @return content as empty at first but when we send in an filePathArgument it will recive the data of the filepath
 	 */
-    public static String getContent(String filePath) {
+    public static String[] getContent(String filePath)
+	{
         String content = "";
         try
         {
@@ -56,9 +58,6 @@ public class DocumentHandler
         {
             e.printStackTrace();
         }
-        String wordsAndNumber [] =content.split(" ");
-		System.out.println(wordsAndNumber[0]);
-
-        return content;
+        return content.split("\\W+");
     }
 }
