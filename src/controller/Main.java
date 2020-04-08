@@ -22,6 +22,7 @@ public class Main extends Application {
     public static void main(String[] args) {
 		System.out.println("Hej 2");
 
+		DocumentHandler.loadAllFiles();
 		/*TextFile textFile1 = new TextFile("Katten", new String[]{"hej", "hopp"});
 		TextFile textFile2 = new TextFile("musen", new String[]{"hej", "hopp"});
 		TextFile textFile3 = new TextFile("busen", new String[]{"hej", "hopp"});
@@ -35,9 +36,6 @@ public class Main extends Application {
        //DH.getContent("C:/txtSearch/makeitWork.txt");
        // DH.getContent("C:/txtSearch/text.txt");
        //DH.CreateFile("Katt", "Hej katt man katt");
-
-
-
 
 
 		// Use this command below to launch javaFX View.

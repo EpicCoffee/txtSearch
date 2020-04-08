@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -12,10 +13,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import model.Session;
 import model.TextFile;
 
 public class DocumentHandler
 {
+	private final static String folderPath = "C:/txtSearch/";
+
 	/** Search within the ContentWords to find searchText, returns the matching words.
 	 *
 	 * @param textFile the textFile you want to search in.
@@ -55,8 +59,9 @@ public class DocumentHandler
 	 * @return will return the the texts inside words an array each word has it own position index
 	 * regex it removes all non alphabetic letters.
 	 */
-    public String[] getContent(String filePath) {
+    public static String[] getContent(String filePath) {
         String content = "";
+
         try
         {
             content = new String(Files.readAllBytes(Paths.get(filePath)));
@@ -66,12 +71,28 @@ public class DocumentHandler
             e.printStackTrace();
 
         }
-        String[] words =content.split("\\W+");
 
-
-
-        return words;
+        return getWordsFromString(content);
     }
+
+    public static String[] getWordsFromString(String text)
+	{
+		return text.split("\\W+");
+	}
+
+    public static void loadAllFiles()
+	{
+		Session.getSession().resetLoadedTextFiles();
+		File f = new File(folderPath);
+		FilenameFilter textFilter = (dir, name) -> name.toLowerCase().endsWith(".txt");
+
+		File[] files = f.listFiles(textFilter);
+		for (File file : files) {
+			String name = file.getName().substring(0, file.getName().length() - 4);
+			Session.getSession().addToLoadedTextFiles(new TextFile(name, getContent(file.getPath())));
+		}
+
+	}
 
 	/**
 	 * Tries to create a file with name and content.
@@ -80,7 +101,7 @@ public class DocumentHandler
 	public static boolean saveFile(String fileName, String content)
 	{
 		try {
-			File file = new File("C:/txtSearch/" + fileName + ".txt");
+			File file = new File(folderPath + fileName + ".txt");
 			if (file.exists())
 			{
 				return writeInTextFile(fileName, content);
@@ -98,7 +119,7 @@ public class DocumentHandler
 
 	public static boolean writeInTextFile(String fileName, String content)
 	{
-		try (PrintWriter out = new PrintWriter("C:/txtSearch/" + fileName + ".txt")) {
+		try (PrintWriter out = new PrintWriter(folderPath + fileName + ".txt")) {
 			out.println(content);
 			return true;
 		}
