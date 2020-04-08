@@ -53,9 +53,10 @@ public class FileSearchController
 	public void onClickSearchNow(ActionEvent actionEvent)
 	{
 		ArrayList<TextFileRatings> sortedTextfiles = new ArrayList<>(DocumentHandler.setRankingOnTextFile(Session.getSession().getChoosenDocuments(),searchInput.getText()));
-		for(TextFileRatings st:sortedTextfiles){
-			System.out.println(st.rating+" "+ st.textFile.getFileName());
-		}
+
+			for(TextFileRatings st:sortedTextfiles){
+				System.out.println(("Rating: "+st.rating+" || FileName: "+ st.textFile.getFileName()));
+			}
 	}
 
 	@FXML

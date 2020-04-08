@@ -13,6 +13,6 @@ public class TextFileRatings implements Comparable<TextFileRatings> {
 
     @Override
     public int compareTo(TextFileRatings o) {
-        return Integer.compare(rating, o.rating);
+        return Integer.compare(o.rating, rating);
     }
 }
