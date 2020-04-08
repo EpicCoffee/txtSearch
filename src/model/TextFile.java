@@ -3,9 +3,9 @@ package model;
 public class TextFile
 {
 	private String fileName;
-	private String[] contentWords;
+	private String contentWords;
 
-	public TextFile(String fileName, String[] contentWords)
+	public TextFile(String fileName, String contentWords)
 	{
 		this.fileName = fileName;
 		this.contentWords = contentWords;
@@ -21,12 +21,12 @@ public class TextFile
 		this.fileName = fileName;
 	}
 
-	public String[] getContentWords()
+	public String getContentWords()
 	{
 		return contentWords;
 	}
 
-	public void setContentWords(String[] contentWords)
+	public void setContentWords(String contentWords)
 	{
 		this.contentWords = contentWords;
 	}

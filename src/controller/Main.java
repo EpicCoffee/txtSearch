@@ -23,13 +23,13 @@ public class Main extends Application {
 		System.out.println("Hej 2");
 
 		DocumentHandler.loadAllFiles();
-		/*TextFile textFile1 = new TextFile("Katten", new String[]{"hej", "hopp"});
-		TextFile textFile2 = new TextFile("musen", new String[]{"hej", "hopp"});
-		TextFile textFile3 = new TextFile("busen", new String[]{"hej", "hopp"});
-		Session.getSession().addToLoadedTextFiles(textFile1);
+		/*TextFile textFile1 = new TextFile("Katten", new String[]{"hej", "hopp", "hej"});
+		TextFile textFile2 = new TextFile("musen", new String[]{"hej", "hopp", "katt"});
+		TextFile textFile3 = new TextFile("busen", new String[]{"hopp"});
 		Session.getSession().addToLoadedTextFiles(textFile2);
-		Session.getSession().addToLoadedTextFiles(textFile3);*/
-
+		Session.getSession().addToLoadedTextFiles(textFile1);
+		Session.getSession().addToLoadedTextFiles(textFile3);
+*/
 
 		System.out.println("Hello");
        DocumentHandler DH = new DocumentHandler();

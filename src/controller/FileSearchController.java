@@ -25,7 +25,8 @@ public class FileSearchController
 	public TextField searchInput, titleLabel;
 	public AnchorPane searchResultPane, lobbyPane, editPane;
 
-	VBox loadedFilesVBox;
+	private VBox loadedFilesVBox;
+	private VBox loadedRankVBox;
 
 	@FXML
 	public void saveFile(ActionEvent actionEvent)
@@ -49,14 +50,31 @@ public class FileSearchController
 		lobbyPane.setVisible(true);
 	}
 
+	public void onClickSortByAlphabet(ActionEvent actionEvent)
+	{
+		String[] sortedWords = DocumentHandler.alphabeticSort(DocumentHandler.getWordsFromString(textArea.getText()));
+
+		String fullSentence = Arrays.toString(sortedWords);
+		textArea.setText(fullSentence.substring(1, fullSentence.length()-1).replace(",",""));
+	}
+
 	@FXML
 	public void onClickSearchNow(ActionEvent actionEvent)
 	{
+		searchResultPane.getChildren().remove(loadedRankVBox);
 		ArrayList<TextFileRatings> sortedTextfiles = new ArrayList<>(DocumentHandler.setRankingOnTextFile(Session.getSession().getChoosenDocuments(),searchInput.getText()));
-
-			for(TextFileRatings st:sortedTextfiles){
-				System.out.println(("Rating: "+st.rating+" || FileName: "+ st.textFile.getFileName()));
-			}
+		loadedRankVBox = new VBox();
+		for(TextFileRatings st:sortedTextfiles){
+			Label pointLabel = new Label(st.rating + " " + st.textFile.getFileName());
+			pointLabel.setOnMouseClicked(event ->
+			{
+				titleLabel.setText(st.textFile.getFileName());
+				textArea.setText(st.textFile.getContentWords());
+				goToNewDocument(null);
+			});
+			loadedRankVBox.getChildren().add(pointLabel);
+		}
+		searchResultPane.getChildren().add(loadedRankVBox);
 	}
 
 	@FXML
@@ -95,4 +113,5 @@ public class FileSearchController
 		}
 		allLoadedFilesPane.getChildren().add(loadedFilesVBox);
 	}
+
 }

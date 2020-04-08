@@ -29,7 +29,7 @@ public class DocumentHandler
 	public static ArrayList<String> searchStrings(TextFile textFile, String ... searchText)
 	{
 		ArrayList<String> wordMatches = new ArrayList<>();
-		String[] txtContent = textFile.getContentWords();
+		String[] txtContent = getWordsFromString(textFile.getContentWords());
 		for (String contentWord : txtContent)
 		{
 			if (Arrays.asList(searchText).contains(contentWord))
@@ -59,7 +59,7 @@ public class DocumentHandler
 	 * @return will return the the texts inside words an array each word has it own position index
 	 * regex it removes all non alphabetic letters.
 	 */
-    public static String[] getContent(String filePath) {
+    public static String getContent(String filePath) {
         String content = "";
 
         try
@@ -72,7 +72,7 @@ public class DocumentHandler
 
         }
 
-        return getWordsFromString(content);
+        return content;
     }
 
     public static String[] getWordsFromString(String text)
@@ -138,8 +138,8 @@ public class DocumentHandler
      * @param chosenWords The words to search after.
      * @return Returns the sorted document.
      */
-	public static ArrayList setRankingOnTextFile(ArrayList<TextFile> chosenDocuments, String ... chosenWords){
-		ArrayList<TextFileRatings> ratedTextFiles = new ArrayList<TextFileRatings>();
+	public static ArrayList<TextFileRatings> setRankingOnTextFile(ArrayList<TextFile> chosenDocuments, String ... chosenWords){
+		ArrayList<TextFileRatings> ratedTextFiles = new ArrayList<>();
 
 		for (TextFile chosenDocument : chosenDocuments) {
 			int rating = searchStrings(chosenDocument, chosenWords).size();
