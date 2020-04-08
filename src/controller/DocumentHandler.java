@@ -117,15 +117,14 @@ public class DocumentHandler
      * @param chosenWords The words to search after.
      * @return Returns the sorted document.
      */
-	public List setRankingOnTextFile(ArrayList<TextFile> chosenDocuments, String ... chosenWords){
-		List<TextFileRatings> ratedTextFiles = new ArrayList<TextFileRatings>();
+	public static ArrayList setRankingOnTextFile(ArrayList<TextFile> chosenDocuments, String ... chosenWords){
+		ArrayList<TextFileRatings> ratedTextFiles = new ArrayList<TextFileRatings>();
 
-		for (int i = 0; i < chosenDocuments.size(); i++) {
-			int rating = searchStrings(chosenDocuments.get(i),chosenWords).size();
-            ratedTextFiles.add(new TextFileRatings(rating,chosenDocuments.get(i)));
+		for (TextFile chosenDocument : chosenDocuments) {
+			int rating = searchStrings(chosenDocument, chosenWords).size();
+			ratedTextFiles.add(new TextFileRatings(rating, chosenDocument));
 		}
 		Collections.sort(ratedTextFiles);
 		return ratedTextFiles;
 	}
-
 }

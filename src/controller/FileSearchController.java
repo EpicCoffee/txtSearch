@@ -14,6 +14,9 @@ import javafx.scene.paint.Color;
 import model.Session;
 import model.TextFile;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class FileSearchController
 {
 	@FXML
@@ -38,6 +41,10 @@ public class FileSearchController
 	@FXML
 	public void onClickSearchNow(ActionEvent actionEvent)
 	{
+		ArrayList<TextFileRatings> sortedTextfiles = new ArrayList<>(DocumentHandler.setRankingOnTextFile(Session.getSession().getChoosenDocuments(),searchInput.getText()));
+		for(TextFileRatings st:sortedTextfiles){
+			System.out.println(st.rating+" "+ st.textFile.getFileName());
+		}
 	}
 
 	@FXML
