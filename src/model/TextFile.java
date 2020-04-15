@@ -1,5 +1,8 @@
 package model;
 
+/*
+  This is a POJO holding the info we need in the text files.
+ */
 public class TextFile
 {
 	private String fileName;
@@ -11,14 +14,13 @@ public class TextFile
 		this.contentWords = contentWords;
 	}
 
+	/*
+	 Only getters and setters below.
+	 */
+
 	public String getFileName()
 	{
 		return fileName;
-	}
-
-	public void setFileName(String fileName)
-	{
-		this.fileName = fileName;
 	}
 
 	public String getContentWords()
@@ -26,8 +28,4 @@ public class TextFile
 		return contentWords;
 	}
 
-	public void setContentWords(String contentWords)
-	{
-		this.contentWords = contentWords;
-	}
 }

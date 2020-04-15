@@ -2,19 +2,23 @@ package model;
 
 import java.util.ArrayList;
 
+/*
+  This is a POJO holding all info needed at the program.
+ */
 public class Session
 {
 	private static Session session;
 	private ArrayList<TextFile> loadedTextFiles;
-	private TextFile currentDocument;
-	private ArrayList<TextFile> choosenDocuments;
+	private ArrayList<TextFile> chosenDocuments;
 
-	private Session() {
+	private Session()
+	{
 		loadedTextFiles = new ArrayList<>();
-		currentDocument = null;
-		choosenDocuments = new ArrayList<>();
+		chosenDocuments = new ArrayList<>();
 	}
-
+	/**
+	 * Singleton of Session.
+	 */
 	public static Session getSession()
 	{
 		if (session == null)
@@ -24,14 +28,13 @@ public class Session
 		return session;
 	}
 
+	/*
+	 Only getters and setters below.
+	 */
+
 	public ArrayList<TextFile> getLoadedTextFiles()
 	{
 		return loadedTextFiles;
-	}
-
-	public void setLoadedTextFiles(ArrayList<TextFile> loadedTextFiles)
-	{
-		this.loadedTextFiles = loadedTextFiles;
 	}
 
 	public void addToLoadedTextFiles(TextFile loadedTextFile)
@@ -44,38 +47,23 @@ public class Session
 		loadedTextFiles = new ArrayList<>();
 	}
 
-	public void removeAtLoadedTextFiles(TextFile loadedTextFile)
+	public ArrayList<TextFile> getChosenDocuments()
 	{
-		this.loadedTextFiles.remove(loadedTextFile);
+		return chosenDocuments;
 	}
 
-	public TextFile getCurrentDocument()
+	public void addToChosenDocuments(TextFile document)
 	{
-		return currentDocument;
+		this.chosenDocuments.add(document);
 	}
 
-	public void setCurrentDocument(TextFile currentDocument)
+	public void resetChosenDocuments()
 	{
-		this.currentDocument = currentDocument;
+		chosenDocuments = new ArrayList<>();
 	}
 
-	public ArrayList<TextFile> getChoosenDocuments()
+	public void removeAtChosenDocuments(TextFile document)
 	{
-		return choosenDocuments;
-	}
-
-	public void setChoosenDocuments(ArrayList<TextFile> choosenDocuments)
-	{
-		this.choosenDocuments = choosenDocuments;
-	}
-
-	public void addToChoosenDocuments(TextFile document)
-	{
-		this.choosenDocuments.add(document);
-	}
-
-	public void removeAtChoosenDocuments(TextFile document)
-	{
-		this.choosenDocuments.remove(document);
+		this.chosenDocuments.remove(document);
 	}
 }

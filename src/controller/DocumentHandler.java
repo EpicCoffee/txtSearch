@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,25 +9,24 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import model.Session;
 import model.TextFile;
+import model.TextFileRatings;
 
-public class DocumentHandler
+class DocumentHandler
 {
-	private final static String folderPath = "C:/txtSearch/";
 
-	/** Search within the ContentWords to find searchText, returns the matching words.
+	/** Search within the ContentWords in the textFile to find searchText(s), returns the matching words.
 	 *
 	 * @param textFile the textFile you want to search in.
 	 * @param searchText the words you want to find in the text file.
 	 * @return ArrayList<String> with the found search results.
 	 */
-	public static ArrayList<String> searchStrings(TextFile textFile, String ... searchText)
+	static ArrayList<String> searchTextFileContentWithWords(TextFile textFile, String ... searchText)
 	{
 		ArrayList<String> wordMatches = new ArrayList<>();
-		String[] txtContent = getWordsFromString(textFile.getContentWords());
+		String[] txtContent = getWordsFromString(textFile.getContentWords().toLowerCase());
 		for (String contentWord : txtContent)
 		{
 			if (Arrays.asList(searchText).contains(contentWord))
@@ -41,74 +38,91 @@ public class DocumentHandler
 	}
 
 	/**
-	 * alphabeticSort() receives an unsorted array and returns it alphabetically sorted. It uses the method <br>
-	 * Arrays.sort to sort the array.
+	 * Sorting word in alphabetical order.
 	 *
-	 * @param unsortedTextfile The unsorted text file.
-	 * @return The sorted text file.
+	 * @param unsortedWords All the word you want to sort.
+	 * @return String[] of words in alphabetical order.
 	 */
-	public static String[] alphabeticSort(String[] unsortedTextfile){
-		Arrays.sort(unsortedTextfile);
-		return unsortedTextfile;
+	static String[] alphabeticSort(String[] unsortedWords)
+	{
+		Arrays.sort(unsortedWords);
+		return unsortedWords;
 	}
 
 	/**
 
-	 * using content as an "empty box" where i store and manipulate eg. with split and filepath
-	 * @param filePath String filePath has the file reading function so we send it as an argument it will read the files
-	 * @return will return the the texts inside words an array each word has it own position index
-	 * regex it removes all non alphabetic letters.
+	 * Get the content of an text file as a String.
+	 *
+	 * @param filePath The file path to the text file you want content from.
+	 * @return String with the content of the text file at filePath.
 	 */
-    public static String getContent(String filePath) {
-        String content = "";
-
+    private static String getContentInTextFileAt(String filePath)
+	{
         try
         {
-            content = new String(Files.readAllBytes(Paths.get(filePath)));
+            return new String(Files.readAllBytes(Paths.get(filePath)));
         }
         catch (IOException e)
         {
             e.printStackTrace();
 
         }
-
-        return content;
+        return "";
     }
 
-    public static String[] getWordsFromString(String text)
+	/**
+	 * Get the words with no spaces and no strange signs from a sentence.
+	 *
+	 * @param text the sentence you want to get words from.
+	 * @return String[] with valid words.
+	 */
+    static String[] getWordsFromString(String text)
 	{
 		return text.split("\\W+");
 	}
 
-    public static void loadAllFiles()
+
+	/**
+	 * Loads all .txt files from our folderPath and adds the needed info as a TextFile to LoadedTextFiles at Session.
+	 */
+    static void loadAllMyTextFiles()
 	{
 		Session.getSession().resetLoadedTextFiles();
-		File f = new File(folderPath);
+		File f = new File(Constants.folderPath);
 		FilenameFilter textFilter = (dir, name) -> name.toLowerCase().endsWith(".txt");
 
 		File[] files = f.listFiles(textFilter);
+		if (files == null)
+		{
+			return;
+		}
+
 		for (File file : files) {
 			String name = file.getName().substring(0, file.getName().length() - 4);
-			Session.getSession().addToLoadedTextFiles(new TextFile(name, getContent(file.getPath())));
+			Session.getSession().addToLoadedTextFiles(new TextFile(name, getContentInTextFileAt(file.getPath())));
 		}
 
 	}
 
 	/**
-	 * Tries to create a file with name and content.
-	 * @return true if file is created.
+	 * Write the content you want inside of a text file.
+	 * Creates the text file if it do not exist.
+	 *
+	 *  @param fileName The chosen documents name, without format.
+	 * @param content The text you want to save in the file.
+	 * @return true if file is created or when the content of the text file is changed.
 	 */
-	public static boolean saveFile(String fileName, String content)
+	static boolean editOrCreateTextFile(String fileName, String content)
 	{
 		try {
-			File file = new File(folderPath + fileName + ".txt");
+			File file = new File(Constants.folderPath + fileName + ".txt");
 			if (file.exists())
 			{
-				return writeInTextFile(fileName, content);
+				return setContentInTextFile(fileName, content);
 			}
 			else if (file.createNewFile())
 			{
-				return writeInTextFile(fileName, content);
+				return setContentInTextFile(fileName, content);
 			}
 		} catch (IOException e) {
 			System.out.println("Error");
@@ -117,9 +131,17 @@ public class DocumentHandler
 		return false;
 	}
 
-	public static boolean writeInTextFile(String fileName, String content)
+	/**
+	 * Write the content you want inside of an existing text file.
+	 *
+	 * @param fileName The chosen documents name, without format.
+	 * @param content The text you want to save in the file.
+	 * @return true if it manage to write the content in the file.
+	 */
+
+	private static boolean setContentInTextFile(String fileName, String content)
 	{
-		try (PrintWriter out = new PrintWriter(folderPath + fileName + ".txt")) {
+		try (PrintWriter out = new PrintWriter(Constants.folderPath + fileName + ".txt")) {
 			out.println(content);
 			return true;
 		}
@@ -132,17 +154,21 @@ public class DocumentHandler
 	}
 
     /**
-     * setRankingOnTextFile() uses searchString() to rank the chosen documents and saves the ranking and found words <br>
-     *     in the TextFileRatings class.
+     * Creates an sorted ArrayList with the documents and ranks.
+	 * Ranks are based on amount of found words in the document.
+	 * Sort the list and highest rank will be at top.
+     *
      * @param chosenDocuments The chosen documents to search and rank.
      * @param chosenWords The words to search after.
-     * @return Returns the sorted document.
+     * @return ArrayList with TextFileRating sorted by highest rating first.
      */
-	public static ArrayList<TextFileRatings> setRankingOnTextFile(ArrayList<TextFile> chosenDocuments, String ... chosenWords){
+	static ArrayList<TextFileRatings> createSortedTextFileRatingsArrayList(ArrayList<TextFile> chosenDocuments, String ... chosenWords)
+	{
 		ArrayList<TextFileRatings> ratedTextFiles = new ArrayList<>();
 
-		for (TextFile chosenDocument : chosenDocuments) {
-			int rating = searchStrings(chosenDocument, chosenWords).size();
+		for (TextFile chosenDocument : chosenDocuments)
+		{
+			int rating = searchTextFileContentWithWords(chosenDocument, chosenWords).size();
 			ratedTextFiles.add(new TextFileRatings(rating, chosenDocument));
 		}
 		Collections.sort(ratedTextFiles);
