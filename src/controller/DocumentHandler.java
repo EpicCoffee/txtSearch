@@ -56,7 +56,7 @@ class DocumentHandler
 	 * @param filePath The file path to the text file you want content from.
 	 * @return String with the content of the text file at filePath.
 	 */
-    private static String getContentInTextFileAt(String filePath)
+    static String getContentInTextFileAt(String filePath)
 	{
         try
         {
