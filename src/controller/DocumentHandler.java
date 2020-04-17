@@ -14,7 +14,7 @@ import model.Session;
 import model.TextFile;
 import model.TextFileRatings;
 
-class DocumentHandler
+public class DocumentHandler
 {
 
 	/** Search within the ContentWords in the textFile to find searchText(s), returns the matching words.
@@ -23,7 +23,7 @@ class DocumentHandler
 	 * @param searchText the words you want to find in the text file.
 	 * @return ArrayList<String> with the found search results.
 	 */
-	static ArrayList<String> searchTextFileContentWithWords(TextFile textFile, String ... searchText)
+	public static ArrayList<String> searchTextFileContentWithWords(TextFile textFile, String... searchText)
 	{
 		ArrayList<String> wordMatches = new ArrayList<>();
 		String[] txtContent = getWordsFromString(textFile.getContentWords().toLowerCase());
@@ -43,20 +43,19 @@ class DocumentHandler
 	 * @param unsortedWords All the word you want to sort.
 	 * @return String[] of words in alphabetical order.
 	 */
-	static String[] alphabeticSort(String[] unsortedWords)
+	public static String[] alphabeticSort(String[] unsortedWords)
 	{
 		Arrays.sort(unsortedWords);
 		return unsortedWords;
 	}
 
 	/**
-
 	 * Get the content of an text file as a String.
 	 *
 	 * @param filePath The file path to the text file you want content from.
 	 * @return String with the content of the text file at filePath.
 	 */
-    static String getContentInTextFileAt(String filePath)
+    public static String getContentInTextFileAt(String filePath)
 	{
         try
         {
@@ -65,7 +64,6 @@ class DocumentHandler
         catch (IOException e)
         {
             e.printStackTrace();
-
         }
         return "";
     }
@@ -76,7 +74,7 @@ class DocumentHandler
 	 * @param text the sentence you want to get words from.
 	 * @return String[] with valid words.
 	 */
-    static String[] getWordsFromString(String text)
+    public static String[] getWordsFromString(String text)
 	{
 		return text.split("\\W+");
 	}
@@ -85,7 +83,7 @@ class DocumentHandler
 	/**
 	 * Loads all .txt files from our folderPath and adds the needed info as a TextFile to LoadedTextFiles at Session.
 	 */
-    static void loadAllMyTextFiles()
+    public static void loadAllMyTextFiles()
 	{
 		Session.getSession().resetLoadedTextFiles();
 		File f = new File(Constants.folderPath);
@@ -101,7 +99,6 @@ class DocumentHandler
 			String name = file.getName().substring(0, file.getName().length() - 4);
 			Session.getSession().addToLoadedTextFiles(new TextFile(name, getContentInTextFileAt(file.getPath())));
 		}
-
 	}
 
 	/**
@@ -112,7 +109,7 @@ class DocumentHandler
 	 * @param content The text you want to save in the file.
 	 * @return true if file is created or when the content of the text file is changed.
 	 */
-	static boolean editOrCreateTextFile(String fileName, String content)
+	public static boolean editOrCreateTextFile(String fileName, String content)
 	{
 		try {
 			File file = new File(Constants.folderPath + fileName + ".txt");
@@ -162,7 +159,7 @@ class DocumentHandler
      * @param chosenWords The words to search after.
      * @return ArrayList with TextFileRating sorted by highest rating first.
      */
-	static ArrayList<TextFileRatings> createSortedTextFileRatingsArrayList(ArrayList<TextFile> chosenDocuments, String ... chosenWords)
+	public static ArrayList<TextFileRatings> createSortedTextFileRatingsArrayList(ArrayList<TextFile> chosenDocuments, String... chosenWords)
 	{
 		ArrayList<TextFileRatings> ratedTextFiles = new ArrayList<>();
 

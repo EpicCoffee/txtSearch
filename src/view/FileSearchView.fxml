@@ -20,9 +20,9 @@
       </AnchorPane>
       <AnchorPane fx:id="lobbyPane" prefHeight="500.0" prefWidth="700.0">
          <children>
-            <ScrollPane layoutX="23.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0">
+            <ScrollPane layoutX="23.0" layoutY="117.0" prefHeight="200.0" prefWidth="200.0">
               <content>
-                <AnchorPane fx:id="allLoadedFilesPane" minHeight="0.0" minWidth="0.0" prefHeight="367.0" prefWidth="200.0" />
+                <AnchorPane fx:id="allLoadedFilesPane" minHeight="0.0" minWidth="0.0" prefHeight="392.0" prefWidth="200.0" />
               </content>
             </ScrollPane>
             <TextField fx:id="searchInput" layoutX="366.0" layoutY="27.0" promptText="Search here" />
@@ -32,8 +32,8 @@
                 <AnchorPane fx:id="searchResultPane" minHeight="0.0" minWidth="0.0" prefHeight="478.0" prefWidth="374.0" />
               </content>
             </ScrollPane>
-            <Button layoutX="23.0" layoutY="27.0" mnemonicParsing="false" onAction="#goToNewDocument" text="Create new document" />
-            <Label layoutX="80.0" layoutY="83.0" text="Your documents:" />
+            <Button layoutX="57.0" layoutY="27.0" mnemonicParsing="false" onAction="#goToNewDocument" text="Create new document" />
+            <Label layoutX="23.0" layoutY="100.0" text="Your documents:" />
             <Label layoutX="262.0" layoutY="100.0" text="Points:" />
             <Label layoutX="305.0" layoutY="100.0" text="Document name:" />
          </children>

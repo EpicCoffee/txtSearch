@@ -9,11 +9,9 @@ import org.junit.jupiter.api.Test;
 
 class DocumentHandlerTest
 {
-
 	/*
 		Checking if alphabeticSort works by having one unsorted array and one sorted.
 	 */
-
 	@Test
 	void alphabeticSort()
 	{
@@ -25,12 +23,12 @@ class DocumentHandlerTest
 	/*
 		Checking if searchTextFileContentWithWords works by creating a text file and expecting it to find words 4 times in it.
 	 */
-
 	@Test
 	void searchTextFileContentWithWords()
 	{
-		TextFile myTextFile = new TextFile("Name", "hej hopp katt mus Janne malle Kalle Ulle paka makka katt");
-		assertEquals(4, DocumentHandler.searchTextFileContentWithWords(myTextFile, "hej", "katt", "Janne").size(), "I do not find the words.");
+		TextFile myTextFile = new TextFile("Name", "hej hopp katt mus Janne malle Kalle Janne Ulle paka makka katt");
+
+		assertEquals(4, DocumentHandler.searchTextFileContentWithWords(myTextFile, "hej", "katt", "paka").size(), "I do not find the words.");
 	}
 
 	/*
@@ -104,5 +102,4 @@ class DocumentHandlerTest
 	{
 		assertArrayEquals(new String[] {"hej", "jag", "e", "en", "katt"}, DocumentHandler.getWordsFromString("hej, jag e en , katt"), "Did not get matching words from string");
 	}
-
 }
