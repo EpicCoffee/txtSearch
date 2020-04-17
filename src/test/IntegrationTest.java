@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IntegrationTest {
 
+    //This test checks if all of the methods that handles the text files, like creating, editing and loading.
     @Test
     void documentIntegrationTest(){
         DocumentHandler documentHandler = new DocumentHandler();
@@ -25,6 +26,7 @@ class IntegrationTest {
         assertEquals(4, Session.getSession().getLoadedTextFiles().size(), "You do not have 4 txt files in folder C:\\txtSearch");
     }
 
+    //This test checks if the methods that handle sorting works together.
     @Test
     void sortIntegrationTest(){
         DocumentHandler documentHandler = new DocumentHandler();
@@ -55,6 +57,7 @@ class IntegrationTest {
         }
     }
 
+    //This test checks if the methods that handle text manipulation works together.
     @Test
     void textIntegrationTest(){
         DocumentHandler documentHandler = new DocumentHandler();
@@ -65,8 +68,5 @@ class IntegrationTest {
         //Search textfile
         TextFile myTextFile = new TextFile("Name", "hej hopp katt mus Janne malle Kalle Janne Ulle paka makka katt");
         assertEquals(4, DocumentHandler.searchTextFileContentWithWords(myTextFile, "hej", "katt", "paka").size(), "I do not find the words.");
-
-
     }
-
 }
